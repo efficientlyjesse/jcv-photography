@@ -1,0 +1,420 @@
+<!-- JCV Photography — dark & moody prototype. Swap placeholder images/text for your own. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0d;
+    --bg-soft:#101216;
+    --text:#ece9e3;
+    --muted:#8c8f96;
+    --line:rgba(255,255,255,.09);
+    --accent:#c9a86a;          /* golden-hour amber */
+    --accent-dim:#9c8350;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);font-family:var(--sans);
+    font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  .kicker{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:400}
+  .hero-brand{font-size:1.5rem;letter-spacing:.2em;font-weight:500}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 38px;transition:background .4s ease,padding .4s ease,border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{background:rgba(10,11,13,.82);backdrop-filter:blur(14px);padding:14px 38px;border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--serif);font-size:1.5rem;letter-spacing:.04em;cursor:pointer}
+  .brand b{color:var(--accent);font-weight:600}
+  nav{display:flex;align-items:center;gap:30px}
+  nav button{
+    background:none;border:none;color:var(--text);font-family:var(--sans);
+    font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+    cursor:pointer;opacity:.75;transition:opacity .25s,color .25s;position:relative;padding:4px 0;
+  }
+  nav button:hover,nav button.active{opacity:1;color:var(--accent)}
+  nav button.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:var(--accent)}
+  .ig{display:inline-flex;width:18px;height:18px;opacity:.8;transition:opacity .25s,transform .25s}
+  .ig:hover{opacity:1;transform:translateY(-1px)}
+  .menu-btn{display:none;background:none;border:none;color:var(--text);cursor:pointer}
+
+  /* ---------- PAGES ---------- */
+  .page{display:none;animation:fade .6s ease}
+  .page.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 38px}
+  .section-pad{padding:120px 0 90px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .hero .bg{position:absolute;inset:0;z-index:0}
+  .hero .bg::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,rgba(10,11,13,.25),rgba(10,11,13,.82) 75%),linear-gradient(to bottom,rgba(10,11,13,.4),rgba(10,11,13,.15) 40%,rgba(10,11,13,.95))}
+  .hero-inner{position:relative;z-index:2;padding:0 24px;max-width:880px;animation:rise 1.3s cubic-bezier(.2,.7,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.5rem,6vw,5rem);line-height:1.08;margin:18px 0 22px;letter-spacing:.01em}
+  .hero p{color:var(--muted);font-size:1.05rem;max-width:560px;margin:0 auto 36px}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 30px;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);transition:.3s;cursor:pointer;background:none;font-family:var(--sans)}
+  .btn:hover{background:var(--accent);color:#0a0b0d}
+  .btn.solid{background:var(--accent);color:#0a0b0d}
+  .btn.solid:hover{background:var(--accent-dim);border-color:var(--accent-dim)}
+  .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;animation:bob 2.2s infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,8px);opacity:1}}
+
+  /* ---------- FEATURED ---------- */
+  .feat-head{text-align:center;margin-bottom:48px}
+  .feat-head h2{font-family:var(--serif);font-size:2.6rem;font-weight:500;margin-top:12px}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .feat-grid .tile:first-child{grid-row:span 2}
+
+  /* ---------- TILES / GALLERY ---------- */
+  .tile{position:relative;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,#181b21,#0c0d10);aspect-ratio:3/2}
+  .feat-grid .tile:first-child{aspect-ratio:auto;min-height:100%}
+  .tile::before{content:"JCV";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.6rem;color:rgba(255,255,255,.08);letter-spacing:.2em;z-index:0}
+  .tile img{position:relative;z-index:1;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .3s}
+  .tile:hover img{transform:scale(1.07)}
+  .tile .cap{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:18px;
+    background:linear-gradient(to top,rgba(8,9,11,.85),transparent 55%);opacity:0;transition:opacity .35s}
+  .tile:hover .cap{opacity:1}
+  .tile .cap span{font-family:var(--serif);font-size:1.15rem;letter-spacing:.02em}
+
+  .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:30px 0 44px}
+  .filters button{background:none;border:1px solid var(--line);color:var(--muted);padding:9px 20px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.25s;font-family:var(--sans)}
+  .filters button:hover{color:var(--text);border-color:rgba(255,255,255,.25)}
+  .filters button.active{background:var(--accent);border-color:var(--accent);color:#0a0b0d}
+  .gallery-grid{columns:3;column-gap:14px}
+  .gallery-grid .tile{display:inline-block;width:100%;margin-bottom:14px;aspect-ratio:auto}
+  .gallery-grid .tile img{height:auto}
+  .g-tall{min-height:380px}.g-short{min-height:240px}
+
+  .page-head{text-align:center;margin-bottom:8px}
+  .page-head h2{font-family:var(--serif);font-size:2.8rem;font-weight:500;margin-top:10px}
+  .page-head p{color:var(--muted);max-width:560px;margin:14px auto 0}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(6,7,9,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+  .lb.open{display:flex;animation:fade .3s}
+  .lb img{max-width:88vw;max-height:82vh;width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);font-family:var(--serif);font-size:1.2rem;letter-spacing:.03em}
+  .lb-close,.lb-nav{position:absolute;background:none;border:none;color:var(--text);cursor:pointer;opacity:.7;transition:.25s;z-index:2}
+  .lb-close:hover,.lb-nav:hover{opacity:1;color:var(--accent)}
+  .lb-close{top:24px;right:30px;font-size:2rem;line-height:1}
+  .lb-nav{top:50%;transform:translateY(-50%);font-size:2.6rem;padding:20px}
+  .lb-prev{left:14px}.lb-next{right:14px}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:.8fr 1fr;gap:60px;align-items:center}
+  .about-portrait{aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,#181b21,#0c0d10)}
+  .about-text h2{font-family:var(--serif);font-size:3rem;font-weight:500;margin:14px 0 20px}
+  .about-text p{color:#c3c1bb;margin-bottom:18px;font-size:1.05rem}
+  .about-text .ig-line{display:inline-flex;align-items:center;gap:8px;margin-top:10px;color:var(--accent)}
+
+  /* ---------- FUNDRAISERS ---------- */
+  .fund-hero{text-align:center;max-width:680px;margin:0 auto 56px}
+  .fund-hero h2{font-family:var(--serif);font-size:3rem;font-weight:500;margin:14px 0 18px}
+  .fund-hero p{color:#c3c1bb;font-size:1.08rem}
+  .fund-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .fund-card{background:var(--bg-soft);border:1px solid var(--line);overflow:hidden;transition:.35s;display:flex;flex-direction:column}
+  .fund-card:hover{border-color:rgba(201,168,106,.45);transform:translateY(-4px)}
+  .fund-card .img{aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,#181b21,#0c0d10)}
+  .fund-card .img img{transition:transform .8s}
+  .fund-card:hover .img img{transform:scale(1.06)}
+  .fund-body{padding:28px 28px 32px;display:flex;flex-direction:column;flex:1}
+  .fund-body h3{font-family:var(--serif);font-size:1.7rem;font-weight:500;margin-bottom:10px}
+  .fund-body p{color:var(--muted);font-size:.96rem;margin-bottom:20px;flex:1}
+  .bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
+  .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+  .bar-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:22px;letter-spacing:.04em}
+  .fund-actions{display:flex;gap:12px}
+  .btn.sm{padding:10px 22px;font-size:.72rem}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 38px;text-align:center;color:var(--muted)}
+  footer .brand{display:inline-block;margin-bottom:14px}
+  footer .links{display:flex;gap:24px;justify-content:center;margin:18px 0;flex-wrap:wrap}
+  footer .links button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:.25s}
+  footer .links button:hover{color:var(--accent)}
+  footer small{font-size:.72rem;opacity:.6;letter-spacing:.05em}
+  .placeholder-note{font-size:.7rem;opacity:.45;margin-top:14px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .feat-grid,.gallery-grid{grid-template-columns:1fr 1fr}
+    .gallery-grid{columns:2}
+    .about-grid{grid-template-columns:1fr;gap:34px}
+    .fund-grid{grid-template-columns:1fr}
+    nav{position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:300px;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;background:rgba(10,11,13,.97);backdrop-filter:blur(16px);padding:40px;transition:right .4s ease;border-left:1px solid var(--line)}
+    nav.open{right:0}
+    .menu-btn{display:block;z-index:60}
+    header{padding:18px 24px}
+    header.scrolled{padding:14px 24px}
+    .wrap{padding:0 24px}
+  }
+  @media(max-width:520px){
+    .feat-grid,.gallery-grid{grid-template-columns:1fr;columns:1}
+    .feat-grid .tile:first-child{grid-row:auto}
+  }
+</style>
+
+<header id="hdr">
+  <div class="brand" onclick="go('home')">JCV<b>.</b> Photography</div>
+  <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+  </button>
+  <nav id="nav">
+    <button data-nav="home" class="active" onclick="go('home')">Home</button>
+    <button data-nav="galleries" onclick="go('galleries')">Galleries</button>
+    <button data-nav="about" onclick="go('about')">About</button>
+    <button data-nav="fundraisers" onclick="go('fundraisers')">Fundraisers</button>
+    <a class="ig" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
+    </a>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="bg"><img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2000&q=80" onerror="this.style.opacity=0" alt=""></div>
+    <div class="hero-inner">
+      <span class="kicker hero-brand">JCV Photography</span>
+      <h1>Mountains, stars, and the long walk between them</h1>
+      <p>Landscape, astro and aerial photography by Jesse Cases Villablanca.</p>
+      <div class="hero-btns">
+        <button class="btn solid" onclick="go('galleries')">View Galleries</button>
+        <button class="btn" onclick="go('fundraisers')">Fundraisers</button>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll</div>
+  </div>
+
+  <div class="wrap section-pad">
+    <div class="feat-head">
+      <span class="kicker">Selected Work</span>
+      <h2>A few favourites</h2>
+    </div>
+    <div class="feat-grid" id="featGrid"></div>
+    <div style="text-align:center;margin-top:46px">
+      <button class="btn" onclick="go('galleries')">Explore all galleries</button>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERIES -->
+<section class="page" id="galleries">
+  <div class="wrap section-pad">
+    <div class="page-head">
+      <span class="kicker">Galleries</span>
+      <h2>The Collection</h2>
+      <p>From alpine ridgelines to the stars above them — explore by collection.</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="about">
+  <div class="wrap section-pad">
+    <div class="about-grid">
+      <div class="about-portrait">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt="Portrait">
+      </div>
+      <div class="about-text">
+        <span class="kicker">About</span>
+        <h2>Meet Jesse</h2>
+        <p>I'm a photographer with a deep pull toward the outdoors — mountain tops most of all — always chasing interesting, inspiring subjects for my camera and drone.</p>
+        <p>My favourite things to photograph are landscapes, nature and the Milky Way. I thrive on exploring new places and sharing their beauty so others can enjoy them too.</p>
+        <p>I walked the Via Alpina — a 2,000&nbsp;km (~1,200&nbsp;mile) trail across the Alps from Trieste to Monaco — raising money for men's mental health along the way. Wherever the trail led, the camera came too.</p>
+        <a class="ig-line" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">
+          <svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
+          Follow @jesselcv
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDRAISERS -->
+<section class="page" id="fundraisers">
+  <div class="wrap section-pad">
+    <div class="fund-hero">
+      <span class="kicker">Giving Back</span>
+      <h2>Photography with a purpose</h2>
+      <p>I walked the Via Alpina across the Alps to raise money for men's mental health and suicide prevention. Every print sold during the journey was donated in full.</p>
+    </div>
+    <div class="fund-grid">
+      <div class="fund-card">
+        <div class="img"><img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt=""></div>
+        <div class="fund-body">
+          <h3>The Via Alpina</h3>
+          <p>A 2,000&nbsp;km (~1,200&nbsp;mile) trek through the Alps, from Trieste, Italy to Monaco — one ridge, one sunrise, one frame at a time. All proceeds from photos sold during the walk went straight to men's mental health.</p>
+          <div class="bar"><i style="width:100%"></i></div>
+          <div class="bar-meta"><span>2,000 km walked</span><span>Complete</span></div>
+          <div class="fund-actions">
+            <a class="btn solid sm donate-btn" href="#">Donate</a>
+            <a class="btn sm" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">Follow the journey</a>
+          </div>
+        </div>
+      </div>
+      <div class="fund-card">
+        <div class="img"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt=""></div>
+        <div class="fund-body">
+          <h3>Movember</h3>
+          <p>The Via Alpina walk was a Movember fundraiser for men's health — mental health, depression awareness and suicide prevention. The mo's gone, but the cause and the donation page are still open.</p>
+          <div class="bar"><i style="width:42%"></i></div>
+          <div class="bar-meta"><span>Goal in sight</span><span>42%</span></div>
+          <div class="fund-actions">
+            <a class="btn solid sm donate-btn" href="#">Donate</a>
+            <a class="btn sm" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="lb-close" onclick="closeLb()">&times;</button>
+  <button class="lb-nav lb-prev" onclick="lbStep(-1)">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbStep(1)">&#8250;</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<footer>
+  <div class="brand">JCV<b>.</b> Photography</div>
+  <div class="links">
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('galleries')">Galleries</button>
+    <button onclick="go('about')">About</button>
+    <button onclick="go('fundraisers')">Fundraisers</button>
+  </div>
+  <small>© <span id="yr"></span> JCV Photography · Jesse Cases Villablanca</small>
+  <div class="placeholder-note">Prototype — placeholder images & copy. Swap in your own work to finish.</div>
+</footer>
+
+<script>
+/* ---------- DATA ---------- */
+const CATS = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial"];
+const U = id => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1000&q=80`;
+const PHOTOS = [
+  // Landscapes
+  {id:"1506905925346-21bda4d32df4",cat:"Landscapes",t:"Alpine Dawn"},
+  {id:"1464822759023-fed622ff2c3b",cat:"Landscapes",t:"Mist on the Range"},
+  {id:"1469474968028-56623f02e42e",cat:"Landscapes",t:"Valley Light"},
+  {id:"1483728642387-6c3bdd6c93e5",cat:"Landscapes",t:"High Country"},
+  // Astro
+  {id:"1444703686981-a3abbc4d4fe3",cat:"Astro",t:"Under the Stars"},
+  {id:"1502134249126-9f3755a50d78",cat:"Astro",t:"Galactic Core"},
+  {id:"1419242902214-272b3f66ee7a",cat:"Astro",t:"The Milky Way"},
+  {id:"1534274988757-a28bf1a57c17",cat:"Astro",t:"Night Watch"},
+  // Nature (now includes Waterfalls & Plantlife)
+  {id:"1441974231531-c6227db76b6e",cat:"Nature",t:"Forest Cathedral"},
+  {id:"1426604966848-d7adac402bff",cat:"Nature",t:"Green Expanse"},
+  {id:"1500534314209-a25ddb2bd429",cat:"Nature",t:"The Quiet Path"},
+  {id:"1518495973542-4542c06a5843",cat:"Nature",t:"Light Through Leaves"},
+  {id:"1432405972618-c60b0225b8f9",cat:"Nature",t:"Falling Water"},
+  {id:"1467890947394-8171244e5410",cat:"Nature",t:"Cascade"},
+  {id:"1416879595882-3373a0480b5b",cat:"Nature",t:"Fern & Fog"},
+  // Sunrises & Sunsets
+  {id:"1470071459604-3b5ec3a7fe05",cat:"Sunrises & Sunsets",t:"Fog & Fire"},
+  {id:"1495616811223-4d98c6e9c869",cat:"Sunrises & Sunsets",t:"Last Light"},
+  {id:"1472120435266-53107fd0c44a",cat:"Sunrises & Sunsets",t:"Golden Hour"},
+  {id:"1500382017468-9049fed747ef",cat:"Sunrises & Sunsets",t:"Field at Dusk"},
+  // Aerial
+  {id:"1500530855697-b586d89ba3ee",cat:"Aerial",t:"From Above"},
+  {id:"1502082553048-f009c37129b9",cat:"Aerial",t:"Treetops"},
+  {id:"1473773508845-188df298d2d1",cat:"Aerial",t:"Coastline"},
+  {id:"1542273917363-3b1817f69a2d",cat:"Aerial",t:"Patterns of Earth"},
+];
+
+/* ---------- ROUTING ---------- */
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
+  document.querySelectorAll('nav button[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
+  window.scrollTo({top:0,behavior:'instant'});
+  closeMenu();
+  onScroll();
+}
+function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
+function closeMenu(){document.getElementById('nav').classList.remove('open')}
+
+/* ---------- BUILD GALLERIES ---------- */
+function tile(p,extraClass){
+  return `<div class="tile ${extraClass||''}" onclick="openLb('${p.id}')">
+    <img src="${U(p.id)}" loading="lazy" onerror="this.style.opacity=0" alt="${p.t}">
+    <div class="cap"><span>${p.t}</span></div>
+  </div>`;
+}
+// featured: pick a spread of 5
+const feat = ["1419242902214-272b3f66ee7a","1454496522488-7a8e488e8606","1470071459604-3b5ec3a7fe05","1441974231531-c6227db76b6e","1500530855697-b586d89ba3ee"]
+  .map(id=>PHOTOS.find(p=>p.id===id)).filter(Boolean);
+document.getElementById('featGrid').innerHTML = feat.map(p=>tile(p)).join('');
+
+// filters
+document.getElementById('filters').innerHTML = CATS.map((c,i)=>
+  `<button class="${i===0?'active':''}" onclick="filter('${c}',this)">${c}</button>`).join('');
+
+let current = PHOTOS.slice();
+function renderGallery(list){
+  const heights=['g-tall','g-short','','g-short','g-tall',''];
+  document.getElementById('galleryGrid').innerHTML = list.map((p,i)=>tile(p,heights[i%heights.length])).join('');
+}
+function filter(cat,btn){
+  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  current = cat==="All"?PHOTOS.slice():PHOTOS.filter(p=>p.cat===cat);
+  renderGallery(current);
+}
+renderGallery(current);
+
+/* ---------- LIGHTBOX ---------- */
+let lbList=[], lbIdx=0;
+function openLb(id){
+  lbList = current.length?current:PHOTOS;
+  lbIdx = lbList.findIndex(p=>p.id===id);
+  if(lbIdx<0) lbIdx=0;
+  showLb();
+  document.getElementById('lb').classList.add('open');
+}
+function showLb(){
+  const p=lbList[lbIdx];
+  document.getElementById('lbImg').src=U(p.id).replace('w=1000','w=1800');
+  document.getElementById('lbCap').textContent=`${p.t} — ${p.cat}`;
+}
+function lbStep(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
+function closeLb(){document.getElementById('lb').classList.remove('open')}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')lbStep(1);
+  if(e.key==='ArrowLeft')lbStep(-1);
+});
+
+/* ---------- NAV SCROLL ---------- */
+function onScroll(){document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>40||!document.getElementById('home').classList.contains('active'))}
+window.addEventListener('scroll',onScroll);
+onScroll();
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* ---------- DONATE LINK ----------
+   Paste your Movember fundraiser URL between the quotes below.
+   Every "Donate" button on the site updates automatically. */
+const MOVEMBER_URL = "https://nz.movember.com/mospace/15362144";
+document.querySelectorAll('.donate-btn').forEach(a=>{
+  a.href = MOVEMBER_URL; a.target = "_blank"; a.rel = "noopener";
+});
+</script>
