@@ -1,4 +1,4 @@
-<!-- JCV Photography — dark & moody prototype. Swap placeholder images/text for your own. -->
+<!-- JCV Photography. Put your photos in the images/ folder using the filenames in the PHOTOS array + hero/about/fundraiser tags. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,7 +186,7 @@
 <!-- HOME -->
 <section class="page active" id="home">
   <div class="hero">
-    <div class="bg"><img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2000&q=80" onerror="this.style.opacity=0" alt=""></div>
+    <div class="bg"><img src="images/hero.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2000&q=80'" alt=""></div>
     <div class="hero-inner">
       <span class="kicker hero-brand">JCV Photography</span>
       <h1>Mountains, stars, and the long walk between them</h1>
@@ -229,7 +229,7 @@
   <div class="wrap section-pad">
     <div class="about-grid">
       <div class="about-portrait">
-        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt="Portrait">
+        <img src="images/about.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=900&q=80'" alt="Portrait">
       </div>
       <div class="about-text">
         <span class="kicker">About</span>
@@ -256,7 +256,7 @@
     </div>
     <div class="fund-grid">
       <div class="fund-card">
-        <div class="img"><img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt=""></div>
+        <div class="img"><img src="images/alpina.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80'" alt=""></div>
         <div class="fund-body">
           <h3>The Via Alpina</h3>
           <p>A 2,000&nbsp;km (~1,200&nbsp;mile) trek through the Alps, from Trieste, Italy to Monaco — one ridge, one sunrise, one frame at a time. All proceeds from photos sold during the walk went straight to men's mental health.</p>
@@ -269,7 +269,7 @@
         </div>
       </div>
       <div class="fund-card">
-        <div class="img"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80" onerror="this.style.opacity=0" alt=""></div>
+        <div class="img"><img src="images/movember.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80'" alt=""></div>
         <div class="fund-body">
           <h3>Movember</h3>
           <p>The Via Alpina walk was a Movember fundraiser for men's health — mental health, depression awareness and suicide prevention. The mo's gone, but the cause and the donation page are still open.</p>
@@ -303,43 +303,100 @@
     <button onclick="go('fundraisers')">Fundraisers</button>
   </div>
   <small>© <span id="yr"></span> JCV Photography · Jesse Cases Villablanca</small>
-  <div class="placeholder-note">Prototype — placeholder images & copy. Swap in your own work to finish.</div>
+  <div class="placeholder-note">Drop your photos into the images/ folder to replace the placeholders.</div>
 </footer>
 
 <script>
-/* ---------- DATA ---------- */
-const CATS = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial"];
+/* =========================================================
+   "JUST WORKS" GALLERY
+   ---------------------------------------------------------
+   You never edit this file to add photos. The page reads your
+   images/ folder straight from GitHub and shows whatever's in it.
+
+   TO ADD PHOTOS: name the file with its category as the prefix,
+   drop it in images/, commit + push. That's it.
+
+       landscape-*.jpg   ->  Landscapes
+       astro-*.jpg       ->  Astro
+       nature-*.jpg      ->  Nature   (waterfalls & plantlife live here)
+       sunset-*.jpg      ->  Sunrises & Sunsets
+       aerial-*.jpg      ->  Aerial
+
+   The rest of the name becomes the caption:
+       astro-milky-way.jpg      ->  "Milky Way"
+       landscape-alpine-dawn.jpg->  "Alpine Dawn"
+   (Just a number like astro-01.jpg captions as its category.)
+
+   Reserved names (used elsewhere, not in the galleries):
+       hero.jpg  about.jpg  alpina.jpg  movember.jpg
+
+   >>> ONE THING TO CHECK: set your repo name below if it isn't
+       "jcv-photography". Owner is already efficientlyjesse.
+   ========================================================= */
+const REPO = { owner:"efficientlyjesse", name:"jcv-photography", branch:"main", dir:"images" };
+
+const CATS   = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial"];
+const PREFIX = { landscape:"Landscapes", astro:"Astro", nature:"Nature", sunset:"Sunrises & Sunsets", aerial:"Aerial" };
+const IMG_RE = /\.(jpe?g|png|webp|avif|gif)$/i;
+const SKIP   = ["hero","about","alpina","movember"]; // reserved filenames
+
+// Placeholders shown only if the images/ folder can't be read yet
+// (e.g. before your first push, or while previewing). Real photos replace these.
 const U = id => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1000&q=80`;
-const PHOTOS = [
-  // Landscapes
-  {id:"1506905925346-21bda4d32df4",cat:"Landscapes",t:"Alpine Dawn"},
-  {id:"1464822759023-fed622ff2c3b",cat:"Landscapes",t:"Mist on the Range"},
-  {id:"1469474968028-56623f02e42e",cat:"Landscapes",t:"Valley Light"},
-  {id:"1483728642387-6c3bdd6c93e5",cat:"Landscapes",t:"High Country"},
-  // Astro
-  {id:"1444703686981-a3abbc4d4fe3",cat:"Astro",t:"Under the Stars"},
-  {id:"1502134249126-9f3755a50d78",cat:"Astro",t:"Galactic Core"},
-  {id:"1419242902214-272b3f66ee7a",cat:"Astro",t:"The Milky Way"},
-  {id:"1534274988757-a28bf1a57c17",cat:"Astro",t:"Night Watch"},
-  // Nature (now includes Waterfalls & Plantlife)
-  {id:"1441974231531-c6227db76b6e",cat:"Nature",t:"Forest Cathedral"},
-  {id:"1426604966848-d7adac402bff",cat:"Nature",t:"Green Expanse"},
-  {id:"1500534314209-a25ddb2bd429",cat:"Nature",t:"The Quiet Path"},
-  {id:"1518495973542-4542c06a5843",cat:"Nature",t:"Light Through Leaves"},
-  {id:"1432405972618-c60b0225b8f9",cat:"Nature",t:"Falling Water"},
-  {id:"1467890947394-8171244e5410",cat:"Nature",t:"Cascade"},
-  {id:"1416879595882-3373a0480b5b",cat:"Nature",t:"Fern & Fog"},
-  // Sunrises & Sunsets
-  {id:"1470071459604-3b5ec3a7fe05",cat:"Sunrises & Sunsets",t:"Fog & Fire"},
-  {id:"1495616811223-4d98c6e9c869",cat:"Sunrises & Sunsets",t:"Last Light"},
-  {id:"1472120435266-53107fd0c44a",cat:"Sunrises & Sunsets",t:"Golden Hour"},
-  {id:"1500382017468-9049fed747ef",cat:"Sunrises & Sunsets",t:"Field at Dusk"},
-  // Aerial
-  {id:"1500530855697-b586d89ba3ee",cat:"Aerial",t:"From Above"},
-  {id:"1502082553048-f009c37129b9",cat:"Aerial",t:"Treetops"},
-  {id:"1473773508845-188df298d2d1",cat:"Aerial",t:"Coastline"},
-  {id:"1542273917363-3b1817f69a2d",cat:"Aerial",t:"Patterns of Earth"},
+const FALLBACK = [
+  {src:U("1506905925346-21bda4d32df4"),cat:"Landscapes",t:"Alpine Dawn"},
+  {src:U("1464822759023-fed622ff2c3b"),cat:"Landscapes",t:"Mist on the Range"},
+  {src:U("1469474968028-56623f02e42e"),cat:"Landscapes",t:"Valley Light"},
+  {src:U("1483728642387-6c3bdd6c93e5"),cat:"Landscapes",t:"High Country"},
+  {src:U("1444703686981-a3abbc4d4fe3"),cat:"Astro",t:"Under the Stars"},
+  {src:U("1502134249126-9f3755a50d78"),cat:"Astro",t:"Galactic Core"},
+  {src:U("1419242902214-272b3f66ee7a"),cat:"Astro",t:"The Milky Way"},
+  {src:U("1534274988757-a28bf1a57c17"),cat:"Astro",t:"Night Watch"},
+  {src:U("1441974231531-c6227db76b6e"),cat:"Nature",t:"Forest Cathedral"},
+  {src:U("1426604966848-d7adac402bff"),cat:"Nature",t:"Green Expanse"},
+  {src:U("1500534314209-a25ddb2bd429"),cat:"Nature",t:"The Quiet Path"},
+  {src:U("1518495973542-4542c06a5843"),cat:"Nature",t:"Light Through Leaves"},
+  {src:U("1432405972618-c60b0225b8f9"),cat:"Nature",t:"Falling Water"},
+  {src:U("1416879595882-3373a0480b5b"),cat:"Nature",t:"Fern & Fog"},
+  {src:U("1470071459604-3b5ec3a7fe05"),cat:"Sunrises & Sunsets",t:"Fog & Fire"},
+  {src:U("1495616811223-4d98c6e9c869"),cat:"Sunrises & Sunsets",t:"Last Light"},
+  {src:U("1472120435266-53107fd0c44a"),cat:"Sunrises & Sunsets",t:"Golden Hour"},
+  {src:U("1500382017468-9049fed747ef"),cat:"Sunrises & Sunsets",t:"Field at Dusk"},
+  {src:U("1500530855697-b586d89ba3ee"),cat:"Aerial",t:"From Above"},
+  {src:U("1502082553048-f009c37129b9"),cat:"Aerial",t:"Treetops"},
+  {src:U("1473773508845-188df298d2d1"),cat:"Aerial",t:"Coastline"},
+  {src:U("1542273917363-3b1817f69a2d"),cat:"Aerial",t:"Patterns of Earth"},
 ];
+
+/* ---------- READ THE images/ FOLDER FROM GITHUB ---------- */
+function catFromName(name){
+  const m = name.toLowerCase().match(/^([a-z]+)/);
+  return m ? (PREFIX[m[1]] || null) : null;
+}
+function titleFromName(name, cat){
+  let base = name.replace(IMG_RE,'').replace(/^(landscape|astro|nature|sunset|aerial)[-_ ]*/i,'');
+  base = base.replace(/\bfeature\b/gi,'');            // drop the home-page marker if present
+  base = base.replace(/[-_]+/g,' ').trim();
+  if(!base || /^\d+$/.test(base)) return cat || '';
+  return base.replace(/\b\w/g, c=>c.toUpperCase());
+}
+async function loadPhotos(){
+  try{
+    const url = `https://api.github.com/repos/${REPO.owner}/${REPO.name}/contents/${REPO.dir}?ref=${REPO.branch}`;
+    const res = await fetch(url, {headers:{Accept:"application/vnd.github+json"}});
+    if(!res.ok) throw new Error("no listing");
+    const files = await res.json();
+    const photos = files
+      .filter(f=>f.type==="file" && IMG_RE.test(f.name))
+      .filter(f=>!SKIP.includes(f.name.replace(IMG_RE,'').toLowerCase()))
+      .map(f=>{ const cat=catFromName(f.name); return {src:`${REPO.dir}/${f.name}`, cat, t:titleFromName(f.name,cat)}; })
+      .filter(p=>p.cat)
+      .sort((a,b)=>a.src.localeCompare(b.src, undefined, {numeric:true}));
+    return photos.length ? photos : FALLBACK.slice();
+  }catch(e){
+    return FALLBACK.slice();
+  }
+}
 
 /* ---------- ROUTING ---------- */
 function go(page){
@@ -353,22 +410,27 @@ function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
 function closeMenu(){document.getElementById('nav').classList.remove('open')}
 
 /* ---------- BUILD GALLERIES ---------- */
+let PHOTOS=[], current=[];
 function tile(p,extraClass){
-  return `<div class="tile ${extraClass||''}" onclick="openLb('${p.id}')">
-    <img src="${U(p.id)}" loading="lazy" onerror="this.style.opacity=0" alt="${p.t}">
+  return `<div class="tile ${extraClass||''}" onclick="openLb('${encodeURIComponent(p.src)}')">
+    <img src="${p.src}" loading="lazy" onerror="this.style.opacity=0" alt="${p.t}">
     <div class="cap"><span>${p.t}</span></div>
   </div>`;
 }
-// featured: pick a spread of 5
-const feat = ["1419242902214-272b3f66ee7a","1454496522488-7a8e488e8606","1470071459604-3b5ec3a7fe05","1441974231531-c6227db76b6e","1500530855697-b586d89ba3ee"]
-  .map(id=>PHOTOS.find(p=>p.id===id)).filter(Boolean);
-document.getElementById('featGrid').innerHTML = feat.map(p=>tile(p)).join('');
-
-// filters
-document.getElementById('filters').innerHTML = CATS.map((c,i)=>
-  `<button class="${i===0?'active':''}" onclick="filter('${c}',this)">${c}</button>`).join('');
-
-let current = PHOTOS.slice();
+function renderFeatured(){
+  // Photos named with "-feature" anchor the home grid; otherwise auto-pick one per category.
+  let feat = PHOTOS.filter(p=>/[-_]feature/i.test(p.src)).slice(0,6);
+  if(!feat.length){
+    const seen=new Set();
+    for(const p of PHOTOS){ if(!seen.has(p.cat)){seen.add(p.cat);feat.push(p);} if(feat.length>=5)break; }
+  }
+  document.getElementById('featGrid').innerHTML = feat.map(p=>tile(p)).join('');
+}
+function buildFilters(){
+  const present = CATS.filter(c=>c==="All"||PHOTOS.some(p=>p.cat===c));
+  document.getElementById('filters').innerHTML = present.map((c,i)=>
+    `<button class="${i===0?'active':''}" onclick="filter('${c}',this)">${c}</button>`).join('');
+}
 function renderGallery(list){
   const heights=['g-tall','g-short','','g-short','g-tall',''];
   document.getElementById('galleryGrid').innerHTML = list.map((p,i)=>tile(p,heights[i%heights.length])).join('');
@@ -379,21 +441,23 @@ function filter(cat,btn){
   current = cat==="All"?PHOTOS.slice():PHOTOS.filter(p=>p.cat===cat);
   renderGallery(current);
 }
-renderGallery(current);
 
 /* ---------- LIGHTBOX ---------- */
 let lbList=[], lbIdx=0;
-function openLb(id){
-  lbList = current.length?current:PHOTOS;
-  lbIdx = lbList.findIndex(p=>p.id===id);
+function openLb(encSrc){
+  const src = decodeURIComponent(encSrc);
+  lbList = (current.length && current.some(p=>p.src===src)) ? current : PHOTOS;
+  lbIdx = lbList.findIndex(p=>p.src===src);
   if(lbIdx<0) lbIdx=0;
   showLb();
   document.getElementById('lb').classList.add('open');
 }
 function showLb(){
   const p=lbList[lbIdx];
-  document.getElementById('lbImg').src=U(p.id).replace('w=1000','w=1800');
-  document.getElementById('lbCap').textContent=`${p.t} — ${p.cat}`;
+  const img=document.getElementById('lbImg');
+  img.onerror=null;
+  img.src=p.src;
+  document.getElementById('lbCap').textContent = p.t ? `${p.t} — ${p.cat}` : p.cat;
 }
 function lbStep(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
 function closeLb(){document.getElementById('lb').classList.remove('open')}
@@ -409,6 +473,15 @@ function onScroll(){document.getElementById('hdr').classList.toggle('scrolled',w
 window.addEventListener('scroll',onScroll);
 onScroll();
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* ---------- INIT: read images/ then build the page ---------- */
+(async function init(){
+  PHOTOS = await loadPhotos();
+  current = PHOTOS.slice();
+  buildFilters();
+  renderFeatured();
+  renderGallery(current);
+})();
 
 /* ---------- DONATE LINK ----------
    Paste your Movember fundraiser URL between the quotes below.
