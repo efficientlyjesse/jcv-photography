@@ -1,4 +1,4 @@
-<!-- JCV Photography. Put your photos in the images/ folder using the filenames in the PHOTOS array + hero/about/fundraiser tags. -->
+<!-- JCV Photography. Photos go in images/. Category prefix sets the gallery; add "via-alpina" to a filename to also show it on the Via Alpina page. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,7 @@
     --text:#ece9e3;
     --muted:#8c8f96;
     --line:rgba(255,255,255,.09);
-    --accent:#c9a86a;          /* golden-hour amber */
+    --accent:#c9a86a;
     --accent-dim:#9c8350;
     --serif:'Cormorant Garamond',Georgia,serif;
     --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
@@ -139,6 +139,23 @@
   .fund-actions{display:flex;gap:12px}
   .btn.sm{padding:10px 22px;font-size:.72rem}
 
+  /* ---------- VIA ALPINA PAGE ---------- */
+  .va-banner{position:relative;height:56vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}
+  .va-banner .bg{position:absolute;inset:0;z-index:0}
+  .va-banner .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,11,13,.96),rgba(10,11,13,.3) 62%,rgba(10,11,13,.5))}
+  .va-banner-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%;padding:0 38px 46px}
+  .va-banner h2{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:500;line-height:1.05;margin:12px 0 8px}
+  .va-banner p{color:#c3c1bb;font-size:1.1rem;max-width:640px}
+  .va-stats{display:flex;flex-wrap:wrap;gap:14px;margin:44px 0 10px}
+  .va-stat{flex:1;min-width:170px;border:1px solid var(--line);background:var(--bg-soft);padding:22px 24px}
+  .va-stat .k{font-family:var(--serif);font-size:1.7rem;color:var(--accent);line-height:1.1}
+  .va-stat .l{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+  .va-body{max-width:720px;margin:44px 0 10px}
+  .va-body p{color:#c3c1bb;font-size:1.06rem;margin-bottom:18px}
+  .va-cta{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 4px}
+  .va-section-title{font-family:var(--serif);font-size:2.1rem;font-weight:500;margin:0 0 26px;text-align:center}
+  .va-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+
   /* ---------- FOOTER ---------- */
   footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 38px;text-align:center;color:var(--muted)}
   footer .brand{display:inline-block;margin-bottom:14px}
@@ -154,6 +171,7 @@
     .gallery-grid{columns:2}
     .about-grid{grid-template-columns:1fr;gap:34px}
     .fund-grid{grid-template-columns:1fr}
+    .va-banner-inner{padding-left:24px;padding-right:24px}
     nav{position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:300px;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;background:rgba(10,11,13,.97);backdrop-filter:blur(16px);padding:40px;transition:right .4s ease;border-left:1px solid var(--line)}
     nav.open{right:0}
     .menu-btn{display:block;z-index:60}
@@ -264,7 +282,7 @@
           <div class="bar-meta"><span>2,000 km walked</span><span>Complete</span></div>
           <div class="fund-actions">
             <a class="btn solid sm donate-btn" href="#">Donate</a>
-            <a class="btn sm" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">Follow the journey</a>
+            <button class="btn sm" onclick="go('via-alpina')">Explore the journey</button>
           </div>
         </div>
       </div>
@@ -277,10 +295,42 @@
           <div class="bar-meta"><span>Goal in sight</span><span>42%</span></div>
           <div class="fund-actions">
             <a class="btn solid sm donate-btn" href="#">Donate</a>
-            <a class="btn sm" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">Learn more</a>
+            <button class="btn sm" onclick="go('via-alpina')">Read the story</button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIA ALPINA -->
+<section class="page" id="via-alpina">
+  <div class="va-banner">
+    <div class="bg"><img src="images/alpina.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2000&q=80'" alt=""></div>
+    <div class="va-banner-inner">
+      <span class="kicker">Fundraiser Journey</span>
+      <h2>The Via Alpina</h2>
+      <p>2,000&nbsp;km on foot, across the Alps — from Trieste, Italy to Monaco.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="va-stats">
+      <div class="va-stat"><div class="k">~2,000 km</div><div class="l">Distance walked</div></div>
+      <div class="va-stat"><div class="k">Trieste → Monaco</div><div class="l">The route</div></div>
+      <div class="va-stat"><div class="k">Men's health</div><div class="l">Why I walked</div></div>
+    </div>
+    <div class="va-body">
+      <p>The Via Alpina traces the Alps from the edge of the Adriatic to the shores of the Mediterranean. I walked it end to end — roughly 2,000&nbsp;kilometres from Trieste to Monaco — with a camera and drone in the pack the whole way.</p>
+      <p>I did it to raise money for men's mental health and suicide prevention as part of Movember. Every print sold during the journey was donated in full — and the donation page is still open if you'd like to give.</p>
+      <p>These are some of the frames I brought back from the trail.</p>
+      <div class="va-cta">
+        <a class="btn solid donate-btn" href="#">Donate to Movember</a>
+        <button class="btn" onclick="go('fundraisers')">Back to Fundraisers</button>
+      </div>
+    </div>
+    <div class="section-pad" style="padding-top:26px">
+      <h3 class="va-section-title">Frames from the trail</h3>
+      <div class="gallery-grid" id="vaGrid"></div>
     </div>
   </div>
 </section>
@@ -309,44 +359,27 @@
 <script>
 /* =========================================================
    "JUST WORKS" GALLERY
-   ---------------------------------------------------------
-   You never edit this file to add photos. The page reads your
-   images/ folder straight from GitHub and shows whatever's in it.
-
-   TO ADD PHOTOS: name the file with its category as the prefix,
-   drop it in images/, commit + push. That's it.
-
-       landscape-*.jpg   ->  Landscapes
-       astro-*.jpg       ->  Astro
-       nature-*.jpg      ->  Nature   (waterfalls & plantlife live here)
-       sunset-*.jpg      ->  Sunrises & Sunsets
-       aerial-*.jpg      ->  Aerial
-
-   The rest of the name becomes the caption:
-       astro-milky-way.jpg      ->  "Milky Way"
-       landscape-alpine-dawn.jpg->  "Alpine Dawn"
-   (Just a number like astro-01.jpg captions as its category.)
-
-   Reserved names (used elsewhere, not in the galleries):
-       hero.jpg  about.jpg  alpina.jpg  movember.jpg
-
-   >>> ONE THING TO CHECK: set your repo name below if it isn't
-       "jcv-photography". Owner is already efficientlyjesse.
+   NAME A FILE BY CATEGORY, drop it in images/, commit + push:
+       landscape-*.jpg  astro-*.jpg  nature-*.jpg  sunset-*.jpg  aerial-*.jpg
+   The rest of the name becomes the caption (astro-milky-way.jpg -> "Milky Way").
+   VIA ALPINA: put "via-alpina" in a filename and it ALSO shows on the Via Alpina page.
+   FEATURE: add "-feature" to pin a shot to the home page grid.
+   Reserved names: hero.jpg  about.jpg  alpina.jpg  movember.jpg
+   >>> SET YOUR REPO NAME below if it isn't "jcv-photography".
    ========================================================= */
 const REPO = { owner:"efficientlyjesse", name:"jcv-photography", branch:"main", dir:"images" };
 
 const CATS   = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial"];
 const PREFIX = { landscape:"Landscapes", astro:"Astro", nature:"Nature", sunset:"Sunrises & Sunsets", aerial:"Aerial" };
 const IMG_RE = /\.(jpe?g|png|webp|avif|gif)$/i;
-const SKIP   = ["hero","about","alpina","movember"]; // reserved filenames
+const VA_RE  = /via[-_]?alpina/i;
+const SKIP   = ["hero","about","alpina","movember"];
 
-// Placeholders shown only if the images/ folder can't be read yet
-// (e.g. before your first push, or while previewing). Real photos replace these.
 const U = id => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1000&q=80`;
 const FALLBACK = [
-  {src:U("1506905925346-21bda4d32df4"),cat:"Landscapes",t:"Alpine Dawn"},
-  {src:U("1464822759023-fed622ff2c3b"),cat:"Landscapes",t:"Mist on the Range"},
-  {src:U("1469474968028-56623f02e42e"),cat:"Landscapes",t:"Valley Light"},
+  {src:U("1506905925346-21bda4d32df4"),cat:"Landscapes",t:"Alpine Dawn",va:true},
+  {src:U("1464822759023-fed622ff2c3b"),cat:"Landscapes",t:"Mist on the Range",va:true},
+  {src:U("1469474968028-56623f02e42e"),cat:"Landscapes",t:"Valley Light",va:true},
   {src:U("1483728642387-6c3bdd6c93e5"),cat:"Landscapes",t:"High Country"},
   {src:U("1444703686981-a3abbc4d4fe3"),cat:"Astro",t:"Under the Stars"},
   {src:U("1502134249126-9f3755a50d78"),cat:"Astro",t:"Galactic Core"},
@@ -358,7 +391,7 @@ const FALLBACK = [
   {src:U("1518495973542-4542c06a5843"),cat:"Nature",t:"Light Through Leaves"},
   {src:U("1432405972618-c60b0225b8f9"),cat:"Nature",t:"Falling Water"},
   {src:U("1416879595882-3373a0480b5b"),cat:"Nature",t:"Fern & Fog"},
-  {src:U("1470071459604-3b5ec3a7fe05"),cat:"Sunrises & Sunsets",t:"Fog & Fire"},
+  {src:U("1470071459604-3b5ec3a7fe05"),cat:"Sunrises & Sunsets",t:"Fog & Fire",va:true},
   {src:U("1495616811223-4d98c6e9c869"),cat:"Sunrises & Sunsets",t:"Last Light"},
   {src:U("1472120435266-53107fd0c44a"),cat:"Sunrises & Sunsets",t:"Golden Hour"},
   {src:U("1500382017468-9049fed747ef"),cat:"Sunrises & Sunsets",t:"Field at Dusk"},
@@ -368,14 +401,13 @@ const FALLBACK = [
   {src:U("1542273917363-3b1817f69a2d"),cat:"Aerial",t:"Patterns of Earth"},
 ];
 
-/* ---------- READ THE images/ FOLDER FROM GITHUB ---------- */
 function catFromName(name){
   const m = name.toLowerCase().match(/^([a-z]+)/);
   return m ? (PREFIX[m[1]] || null) : null;
 }
 function titleFromName(name, cat){
   let base = name.replace(IMG_RE,'').replace(/^(landscape|astro|nature|sunset|aerial)[-_ ]*/i,'');
-  base = base.replace(/\bfeature\b/gi,'');            // drop the home-page marker if present
+  base = base.replace(/\bfeature\b/gi,'');
   base = base.replace(/[-_]+/g,' ').trim();
   if(!base || /^\d+$/.test(base)) return cat || '';
   return base.replace(/\b\w/g, c=>c.toUpperCase());
@@ -389,7 +421,7 @@ async function loadPhotos(){
     const photos = files
       .filter(f=>f.type==="file" && IMG_RE.test(f.name))
       .filter(f=>!SKIP.includes(f.name.replace(IMG_RE,'').toLowerCase()))
-      .map(f=>{ const cat=catFromName(f.name); return {src:`${REPO.dir}/${f.name}`, cat, t:titleFromName(f.name,cat)}; })
+      .map(f=>{ const cat=catFromName(f.name); return {src:`${REPO.dir}/${f.name}`, cat, t:titleFromName(f.name,cat), va:VA_RE.test(f.name)}; })
       .filter(p=>p.cat)
       .sort((a,b)=>a.src.localeCompare(b.src, undefined, {numeric:true}));
     return photos.length ? photos : FALLBACK.slice();
@@ -398,7 +430,6 @@ async function loadPhotos(){
   }
 }
 
-/* ---------- ROUTING ---------- */
 function go(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
   document.querySelectorAll('nav button[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===page));
@@ -409,16 +440,15 @@ function go(page){
 function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
 function closeMenu(){document.getElementById('nav').classList.remove('open')}
 
-/* ---------- BUILD GALLERIES ---------- */
 let PHOTOS=[], current=[];
-function tile(p,extraClass){
+function tile(p,extraClass,caption){
+  const t = caption!==undefined ? caption : p.t;
   return `<div class="tile ${extraClass||''}" onclick="openLb('${encodeURIComponent(p.src)}')">
-    <img src="${p.src}" loading="lazy" onerror="this.style.opacity=0" alt="${p.t}">
-    <div class="cap"><span>${p.t}</span></div>
+    <img src="${p.src}" loading="lazy" onerror="this.style.opacity=0" alt="${t}">
+    <div class="cap"><span>${t}</span></div>
   </div>`;
 }
 function renderFeatured(){
-  // Photos named with "-feature" anchor the home grid; otherwise auto-pick one per category.
   let feat = PHOTOS.filter(p=>/[-_]feature/i.test(p.src)).slice(0,6);
   if(!feat.length){
     const seen=new Set();
@@ -431,9 +461,9 @@ function buildFilters(){
   document.getElementById('filters').innerHTML = present.map((c,i)=>
     `<button class="${i===0?'active':''}" onclick="filter('${c}',this)">${c}</button>`).join('');
 }
+const HEIGHTS=['g-tall','g-short','','g-short','g-tall',''];
 function renderGallery(list){
-  const heights=['g-tall','g-short','','g-short','g-tall',''];
-  document.getElementById('galleryGrid').innerHTML = list.map((p,i)=>tile(p,heights[i%heights.length])).join('');
+  document.getElementById('galleryGrid').innerHTML = list.map((p,i)=>tile(p,HEIGHTS[i%HEIGHTS.length])).join('');
 }
 function filter(cat,btn){
   document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
@@ -441,12 +471,27 @@ function filter(cat,btn){
   current = cat==="All"?PHOTOS.slice():PHOTOS.filter(p=>p.cat===cat);
   renderGallery(current);
 }
+function renderViaAlpina(){
+  const list = PHOTOS.filter(p=>p.va);
+  const grid = document.getElementById('vaGrid');
+  if(!list.length){
+    grid.innerHTML = '<div class="va-empty">Photos will appear here once you add files with <b>via-alpina</b> in the name.</div>';
+    return;
+  }
+  grid.innerHTML = list.map((p,i)=>{
+    const cap = p.t.replace(/^via\s*alpina\s*/i,'').trim() || p.cat;
+    return tile(p, HEIGHTS[i%HEIGHTS.length], cap);
+  }).join('');
+}
 
-/* ---------- LIGHTBOX ---------- */
 let lbList=[], lbIdx=0;
 function openLb(encSrc){
   const src = decodeURIComponent(encSrc);
-  lbList = (current.length && current.some(p=>p.src===src)) ? current : PHOTOS;
+  const va = PHOTOS.filter(p=>p.va);
+  const vaActive = document.getElementById('via-alpina').classList.contains('active');
+  if(vaActive && va.some(p=>p.src===src)) lbList = va;
+  else if(current.length && current.some(p=>p.src===src)) lbList = current;
+  else lbList = PHOTOS;
   lbIdx = lbList.findIndex(p=>p.src===src);
   if(lbIdx<0) lbIdx=0;
   showLb();
@@ -468,24 +513,20 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')lbStep(-1);
 });
 
-/* ---------- NAV SCROLL ---------- */
 function onScroll(){document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>40||!document.getElementById('home').classList.contains('active'))}
 window.addEventListener('scroll',onScroll);
 onScroll();
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-/* ---------- INIT: read images/ then build the page ---------- */
 (async function init(){
   PHOTOS = await loadPhotos();
   current = PHOTOS.slice();
   buildFilters();
   renderFeatured();
   renderGallery(current);
+  renderViaAlpina();
 })();
 
-/* ---------- DONATE LINK ----------
-   Paste your Movember fundraiser URL between the quotes below.
-   Every "Donate" button on the site updates automatically. */
 const MOVEMBER_URL = "https://nz.movember.com/mospace/15362144";
 document.querySelectorAll('.donate-btn').forEach(a=>{
   a.href = MOVEMBER_URL; a.target = "_blank"; a.rel = "noopener";
