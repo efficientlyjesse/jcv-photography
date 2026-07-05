@@ -106,7 +106,10 @@
   .lb{position:fixed;inset:0;z-index:100;background:rgba(6,7,9,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
   .lb.open{display:flex;animation:fade .3s}
   .lb img{max-width:88vw;max-height:82vh;width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-  .lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);font-family:var(--serif);font-size:1.2rem;letter-spacing:.03em}
+  .lb-info{position:absolute;bottom:22px;left:0;right:0;text-align:center;padding:0 20px}
+  .lb-cap{color:var(--muted);font-family:var(--serif);font-size:1.2rem;letter-spacing:.03em}
+  .lb-buy{display:inline-block;margin-top:10px;color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--accent);padding:8px 18px;transition:.25s;cursor:pointer}
+  .lb-buy:hover{background:var(--accent);color:#0a0b0d}
   .lb-close,.lb-nav{position:absolute;background:none;border:none;color:var(--text);cursor:pointer;opacity:.7;transition:.25s;z-index:2}
   .lb-close:hover,.lb-nav:hover{opacity:1;color:var(--accent)}
   .lb-close{top:24px;right:30px;font-size:2rem;line-height:1}
@@ -246,6 +249,7 @@
       <span class="kicker">Galleries</span>
       <h2>The Collection</h2>
       <p>From alpine ridgelines to the stars above them — explore by collection.</p>
+      <p style="margin-top:10px;font-size:.95rem">Prints &amp; inquiries — see one you'd like on your wall? Email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
     </div>
     <div class="filters" id="filters"></div>
     <div class="gallery-grid" id="galleryGrid"></div>
@@ -269,9 +273,6 @@
           <svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
           Follow @jesselcv
         </a>
-        <p style="margin-top:24px">
-          Like one of these images? Prints are available and I take on select commissions — email me at <a href="mailto:hello@jcvphotography.com" style="color:var(--accent)">hello@jcvphotography.com</a>.
-        </p>
       </div>
     </div>
   </div>
@@ -344,6 +345,7 @@
     </div>
     <div class="section-pad" style="padding-top:26px">
       <h3 class="va-section-title">Frames from the trail</h3>
+      <p style="text-align:center;color:var(--muted);max-width:640px;margin:0 auto 30px;font-size:.98rem">Proceeds from any print sold from this gallery are donated to Movember, in support of men's mental health. To enquire about a print, email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
       <div class="gallery-grid" id="vaGrid"></div>
     </div>
   </div>
@@ -355,7 +357,10 @@
   <button class="lb-nav lb-prev" onclick="lbStep(-1)">&#8249;</button>
   <img id="lbImg" src="" alt="">
   <button class="lb-nav lb-next" onclick="lbStep(1)">&#8250;</button>
-  <div class="lb-cap" id="lbCap"></div>
+  <div class="lb-info">
+    <div class="lb-cap" id="lbCap"></div>
+    <a class="lb-buy" id="lbBuy" href="#">Interested in a print? Enquire &rarr;</a>
+  </div>
 </div>
 
 <footer>
@@ -366,7 +371,7 @@
     <button onclick="go('about')">About</button>
     <button onclick="go('fundraisers')">Fundraisers</button>
   </div>
-  <div style="margin:2px 0 14px"><a href="mailto:hello@jcvphotography.com" style="color:var(--accent);font-size:.8rem;letter-spacing:.06em">Prints &amp; inquiries — hello@jcvphotography.com</a></div>
+  <div style="margin:2px 0 14px"><a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent);font-size:.8rem;letter-spacing:.06em">Prints &amp; inquiries — jessecasesphoto@gmail.com</a></div>
   <small>© <span id="yr"></span> JCV Photography · Jesse Cases Villablanca</small>
   <div class="placeholder-note">Drop your photos into the images/ folder to replace the placeholders.</div>
 </footer>
@@ -517,7 +522,14 @@ function showLb(){
   const img=document.getElementById('lbImg');
   img.onerror=null;
   img.src=p.src;
+  const title = p.t || p.cat;
   document.getElementById('lbCap').textContent = p.t ? `${p.t} — ${p.cat}` : p.cat;
+  // Print enquiry link — pre-fills an email with the photo's title
+  const buy = document.getElementById('lbBuy');
+  const subject = encodeURIComponent(`Print enquiry — ${title}`);
+  const body = encodeURIComponent(`Hi Jesse,\n\nI'm interested in buying a print of "${title}"${p.va ? ' (from the Via Alpina series)' : ''}.\n\nThanks!`);
+  buy.href = `mailto:jessecasesphoto@gmail.com?subject=${subject}&body=${body}`;
+  buy.textContent = p.va ? 'Buy as a print — proceeds go to Movember →' : 'Interested in a print? Enquire →';
 }
 function lbStep(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
 function closeLb(){document.getElementById('lb').classList.remove('open')}
