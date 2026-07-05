@@ -24,7 +24,7 @@
   img{display:block;width:100%;height:100%;object-fit:cover}
   a{color:inherit;text-decoration:none}
   .kicker{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:400}
-  .hero-brand{font-size:2.25rem;letter-spacing:.2em;font-weight:500}
+  .hero-brand{font-size:2.25rem;letter-spacing:.12em;font-weight:500}
 
   /* ---------- NAV ---------- */
   header{
@@ -156,9 +156,10 @@
   .va-banner-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%;padding:0 38px 46px}
   .va-banner h2{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:500;line-height:1.05;margin:12px 0 8px}
   .va-banner p{color:#c3c1bb;font-size:1.1rem;max-width:640px}
+  .va-map{position:absolute;right:24px;bottom:22px;z-index:3;width:min(34%,300px);height:auto;object-fit:contain;border-radius:5px;box-shadow:0 6px 20px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12)}
   .va-stats{display:flex;flex-wrap:wrap;gap:14px;margin:44px 0 10px}
   .va-stat{flex:1;min-width:170px;border:1px solid var(--line);background:var(--bg-soft);padding:22px 24px}
-  .va-stat .k{font-family:var(--serif);font-size:1.7rem;color:var(--accent);line-height:1.1}
+  .va-stat .k{font-family:var(--serif);font-size:1.7rem;color:var(--accent);line-height:1.15}
   .va-stat .l{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:10px}
   .va-body{max-width:720px;margin:44px 0 10px}
   .va-body p{color:#c3c1bb;font-size:1.06rem;margin-bottom:18px}
@@ -182,6 +183,7 @@
     .about-grid{grid-template-columns:1fr;gap:34px}
     .fund-grid{grid-template-columns:1fr}
     .va-banner-inner{padding-left:24px;padding-right:24px}
+    .va-map{width:44%;right:14px;bottom:14px}
     nav{position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:300px;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;background:rgba(10,11,13,.97);backdrop-filter:blur(16px);padding:40px;transition:right .4s ease;border-left:1px solid var(--line)}
     nav.open{right:0}
     .menu-btn{display:block;z-index:60}
@@ -192,6 +194,7 @@
   @media(max-width:520px){
     .feat-grid,.gallery-grid{grid-template-columns:1fr;columns:1}
     .feat-grid .tile:first-child{grid-row:auto}
+    .va-map{width:50%;right:10px;bottom:10px}
   }
 </style>
 
@@ -218,7 +221,7 @@
     <div class="hero-inner">
       <span class="kicker hero-brand">JCV Photography</span>
       <h1>Mountains, stars, and the long walk between them</h1>
-      <p>Landscape, astro and aerial photography by Jesse Cases Villablanca.<br><span style="font-size:.85rem"><a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">For prints &amp; inquiries, email jessecasesphoto@gmail.com</a></span></p>
+      <p>Landscape, astro and aerial photography by Jesse Cases Villablanca.<br><span style="font-size:.85rem"><a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">For prints &amp; inquiries, email <span style="text-decoration:underline">jessecasesphoto@gmail.com</span></a></span></p>
       <div class="hero-btns">
         <button class="btn solid" onclick="go('galleries')">View Galleries</button>
         <button class="btn" onclick="go('fundraisers')">Fundraisers</button>
@@ -265,7 +268,7 @@
         <h2>Meet Jesse</h2>
         <p>I'm a photographer with a deep pull toward the outdoors — mountain tops most of all — always chasing interesting, inspiring subjects for my camera and drone.</p>
         <p>My favourite things to photograph are landscapes, nature and the Milky Way. I thrive on exploring new places and sharing their beauty so others can enjoy them too.</p>
-        <p>I walked the Via Alpina — a 2,000&nbsp;km (~1,200&nbsp;mile) trail across the Alps from Trieste to Monaco — raising money for men's mental health along the way. Wherever the trail led, the camera came too.</p>
+        <p>I walked the Via Alpina — a 1,918&nbsp;km (~1,190&nbsp;mile) trail across the Alps from Trieste, Italy to Monaco — raising money for men's mental health along the way. Wherever the trail led, the camera came too.</p>
         <a class="ig-line" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener">
           <svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
           Follow @jesselcv
@@ -288,7 +291,7 @@
         <div class="img"><img src="images/alpina.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80'" alt=""></div>
         <div class="fund-body">
           <h3>The Via Alpina</h3>
-          <p>A 2,000&nbsp;km (~1,200&nbsp;mile) trek through the Alps, from Trieste, Italy to Monaco — one ridge, one sunrise, one frame at a time. All proceeds from photos sold during the walk went straight to men's mental health.</p>
+          <p>A 1,918&nbsp;km (~1,190&nbsp;mile) trek through the Alps, from Trieste, Italy to Monaco — one ridge, one sunrise, one frame at a time. All proceeds from photos sold during the walk went straight to men's mental health.</p>
           <div class="fund-actions">
             <button class="btn sm" onclick="go('via-alpina')">Read the story</button>
           </div>
@@ -318,17 +321,18 @@
     <div class="va-banner-inner">
       <span class="kicker">Fundraiser Journey</span>
       <h2>The Via Alpina</h2>
-      <p>2,000&nbsp;km on foot, across the Alps — from Trieste, Italy to Monaco.</p>
+      <p>1,918&nbsp;km on foot, across the Alps — from Trieste, Italy to Monaco.</p>
     </div>
+    <img class="va-map" src="images/alpina-map.png" onerror="this.style.display='none'" alt="Via Alpina route map">
   </div>
   <div class="wrap">
     <div class="va-stats">
-      <div class="va-stat"><div class="k">~2,000 km</div><div class="l">Distance walked</div></div>
+      <div class="va-stat"><div class="k">1,918 km</div><div class="l">Distance walked</div></div>
       <div class="va-stat"><div class="k">Trieste → Monaco</div><div class="l">The route</div></div>
-      <div class="va-stat"><div class="k">Mental health</div><div class="l">Why I walked</div></div>
+      <div class="va-stat"><div class="k">Mental health and suicide prevention</div><div class="l">Why I walked</div></div>
     </div>
     <div class="va-body">
-      <p>The Via Alpina traces the Alps from the edge of the Adriatic to the shores of the Mediterranean. I walked it end to end — roughly 2,000&nbsp;kilometres from Trieste to Monaco — with a camera and drone in the pack the whole way.</p>
+      <p>The Via Alpina traces the Alps from the edge of the Adriatic to the shores of the Mediterranean. I walked it end to end — 1,918&nbsp;kilometres from Trieste, Italy to Monaco — with a camera and drone in the pack the whole way.</p>
       <p>I did it to raise money for men's mental health and suicide prevention as part of Movember. Every print sold during the journey was donated in full — and the donation page is still open if you'd like to give.</p>
       <p>These are some of the frames I brought back from the trail.</p>
       <div class="va-cta">
@@ -377,7 +381,7 @@
    The rest of the name becomes the caption (astro-milky-way.jpg -> "Milky Way").
    VIA ALPINA: put "via-alpina" in a filename and it ALSO shows on the Via Alpina page.
    FEATURE: add "-feature" to pin a shot to the home page grid.
-   Reserved names: hero.jpg  about.jpg  alpina.jpg  movember-mo.png
+   Reserved names: hero.jpg  about.jpg  alpina.jpg  alpina-map.png  movember-mo.png
    >>> SET YOUR REPO NAME below if it isn't "jcv-photography".
    ========================================================= */
 const REPO = { owner:"efficientlyjesse", name:"jcv-photography", branch:"main", dir:"images" };
@@ -386,7 +390,7 @@ const CATS   = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial
 const PREFIX = { landscape:"Landscapes", astro:"Astro", nature:"Nature", sunset:"Sunrises & Sunsets", aerial:"Aerial" };
 const IMG_RE = /\.(jpe?g|png|webp|avif|gif)$/i;
 const VA_RE  = /via[-_]?alpina/i;
-const SKIP   = ["hero","about","alpina","movember","movember-mo"];
+const SKIP   = ["hero","about","alpina","alpina-map","movember","movember-mo"];
 
 const U = id => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1000&q=80`;
 const FALLBACK = [
@@ -517,7 +521,6 @@ function showLb(){
   img.src=p.src;
   const title = p.t || p.cat;
   document.getElementById('lbCap').textContent = p.t ? `${p.t} — ${p.cat}` : p.cat;
-  // "Order a print" — opens an email pre-filled with the photo title
   const buy = document.getElementById('lbBuy');
   const subject = encodeURIComponent(`Print order — ${title}`);
   const body = encodeURIComponent(`Hi Jesse,\n\nI'd like to order a print of "${title}"${p.va ? ' (from the Via Alpina series)' : ''}.\n\nThanks!`);
