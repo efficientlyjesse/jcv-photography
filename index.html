@@ -24,7 +24,7 @@
   img{display:block;width:100%;height:100%;object-fit:cover}
   a{color:inherit;text-decoration:none}
   .kicker{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:400}
-  .hero-brand{font-size:1.5rem;letter-spacing:.2em;font-weight:500}
+  .hero-brand{font-size:2.25rem;letter-spacing:.2em;font-weight:500}
 
   /* ---------- NAV ---------- */
   header{
@@ -105,7 +105,7 @@
   /* ---------- LIGHTBOX ---------- */
   .lb{position:fixed;inset:0;z-index:100;background:rgba(6,7,9,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
   .lb.open{display:flex;animation:fade .3s}
-  .lb img{max-width:88vw;max-height:82vh;width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .lb img{max-width:88vw;max-height:76vh;width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
   .lb-info{position:absolute;bottom:22px;left:0;right:0;text-align:center;padding:0 20px}
   .lb-cap{color:var(--muted);font-family:var(--serif);font-size:1.2rem;letter-spacing:.03em}
   .lb-buy{display:inline-block;margin-top:10px;color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--accent);padding:8px 18px;transition:.25s;cursor:pointer}
@@ -128,7 +128,7 @@
   .fund-hero h2{font-family:var(--serif);font-size:3rem;font-weight:500;margin:14px 0 18px}
   .fund-hero p{color:#c3c1bb;font-size:1.08rem}
   .fund-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .fund-card{background:var(--bg-soft);border:1px solid var(--line);overflow:hidden;transition:.35s;display:flex;flex-direction:column}
+  .fund-card{background:var(--bg-soft);border:1px solid var(--line);overflow:hidden;transition:.35s;display:flex;flex-direction:column;cursor:pointer}
   .fund-card:hover{border-color:rgba(201,168,106,.45);transform:translateY(-4px)}
   .fund-card .img{aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,#181b21,#0c0d10)}
   .fund-card .img img{transition:transform .8s}
@@ -136,13 +136,10 @@
   .fund-body{padding:28px 28px 32px;display:flex;flex-direction:column;flex:1}
   .fund-body h3{font-family:var(--serif);font-size:1.7rem;font-weight:500;margin-bottom:10px}
   .fund-body p{color:var(--muted);font-size:.96rem;margin-bottom:20px;flex:1}
-  .bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
-  .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
-  .bar-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:22px;letter-spacing:.04em}
   .fund-actions{display:flex;gap:12px}
   .btn.sm{padding:10px 22px;font-size:.72rem}
 
-  /* Graphic panel for cards that don't use a photo */
+  /* Graphic panel for the Movember card (uses images/movember-mo.png, painted amber) */
   .fund-graphic{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--accent);
     background:radial-gradient(ellipse at center,#16181e,#0a0b0d 80%);position:relative;overflow:hidden}
   .fund-graphic::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(201,168,106,.10),transparent 60%)}
@@ -221,7 +218,7 @@
     <div class="hero-inner">
       <span class="kicker hero-brand">JCV Photography</span>
       <h1>Mountains, stars, and the long walk between them</h1>
-      <p>Landscape, astro and aerial photography by Jesse Cases Villablanca.</p>
+      <p>Landscape, astro and aerial photography by Jesse Cases Villablanca.<br><span style="font-size:.85rem"><a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">For prints &amp; inquiries, email jessecasesphoto@gmail.com</a></span></p>
       <div class="hero-btns">
         <button class="btn solid" onclick="go('galleries')">View Galleries</button>
         <button class="btn" onclick="go('fundraisers')">Fundraisers</button>
@@ -249,7 +246,7 @@
       <span class="kicker">Galleries</span>
       <h2>The Collection</h2>
       <p>From alpine ridgelines to the stars above them — explore by collection.</p>
-      <p style="margin-top:10px;font-size:.95rem">Prints &amp; inquiries — see one you'd like on your wall? Email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
+      <p style="margin-top:10px;font-size:.95rem">See one you'd like on your wall?<br>For prints &amp; inquiries email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
     </div>
     <div class="filters" id="filters"></div>
     <div class="gallery-grid" id="galleryGrid"></div>
@@ -284,31 +281,27 @@
     <div class="fund-hero">
       <span class="kicker">Giving Back</span>
       <h2>Photography with a purpose</h2>
-      <p>I walked the Via Alpina across the Alps to raise money for men's mental health and suicide prevention. Every print sold during the journey was donated in full.</p>
+      <p>I walked the Via Alpina across the Alps to raise money for men's mental health and suicide prevention. All proceeds from prints sold from a fundraiser gallery are donated in full to mental health.</p>
     </div>
     <div class="fund-grid">
-      <div class="fund-card">
+      <div class="fund-card" onclick="go('via-alpina')">
         <div class="img"><img src="images/alpina.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80'" alt=""></div>
         <div class="fund-body">
           <h3>The Via Alpina</h3>
           <p>A 2,000&nbsp;km (~1,200&nbsp;mile) trek through the Alps, from Trieste, Italy to Monaco — one ridge, one sunrise, one frame at a time. All proceeds from photos sold during the walk went straight to men's mental health.</p>
-          <div class="bar"><i style="width:100%"></i></div>
-          <div class="bar-meta"><span>2,000 km walked</span><span>Complete</span></div>
           <div class="fund-actions">
             <button class="btn sm" onclick="go('via-alpina')">Read the story</button>
           </div>
         </div>
       </div>
-      <div class="fund-card">
+      <div class="fund-card" onclick="go('via-alpina')">
         <div class="fund-graphic" role="img" aria-label="Movember">
           <div class="mo-mark"></div>
-          <span class="mo-tag">Men's health · Movember</span>
+          <span class="mo-tag">Mental health · Movember</span>
         </div>
         <div class="fund-body">
           <h3>Movember</h3>
           <p>The Via Alpina walk was a Movember fundraiser for men's health — mental health, depression awareness and suicide prevention. The mo's gone, but the cause and the donation page are still open.</p>
-          <div class="bar"><i style="width:42%"></i></div>
-          <div class="bar-meta"><span>Goal in sight</span><span>42%</span></div>
           <div class="fund-actions">
             <button class="btn sm" onclick="go('via-alpina')">Read the story</button>
           </div>
@@ -332,7 +325,7 @@
     <div class="va-stats">
       <div class="va-stat"><div class="k">~2,000 km</div><div class="l">Distance walked</div></div>
       <div class="va-stat"><div class="k">Trieste → Monaco</div><div class="l">The route</div></div>
-      <div class="va-stat"><div class="k">Men's health</div><div class="l">Why I walked</div></div>
+      <div class="va-stat"><div class="k">Mental health</div><div class="l">Why I walked</div></div>
     </div>
     <div class="va-body">
       <p>The Via Alpina traces the Alps from the edge of the Adriatic to the shores of the Mediterranean. I walked it end to end — roughly 2,000&nbsp;kilometres from Trieste to Monaco — with a camera and drone in the pack the whole way.</p>
@@ -345,7 +338,7 @@
     </div>
     <div class="section-pad" style="padding-top:26px">
       <h3 class="va-section-title">Frames from the trail</h3>
-      <p style="text-align:center;color:var(--muted);max-width:640px;margin:0 auto 30px;font-size:.98rem">Proceeds from any print sold from this gallery are donated to Movember, in support of men's mental health. To enquire about a print, email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
+      <p style="text-align:center;color:var(--muted);max-width:640px;margin:0 auto 30px;font-size:.98rem">Proceeds from any print sold from this gallery are donated to Movember, in support of mental health. To order a print, email <a href="mailto:jessecasesphoto@gmail.com" style="color:var(--accent)">jessecasesphoto@gmail.com</a>.</p>
       <div class="gallery-grid" id="vaGrid"></div>
     </div>
   </div>
@@ -359,7 +352,7 @@
   <button class="lb-nav lb-next" onclick="lbStep(1)">&#8250;</button>
   <div class="lb-info">
     <div class="lb-cap" id="lbCap"></div>
-    <a class="lb-buy" id="lbBuy" href="#">Interested in a print? Enquire &rarr;</a>
+    <a class="lb-buy" id="lbBuy" href="#">Order a print &rarr;</a>
   </div>
 </div>
 
@@ -384,7 +377,7 @@
    The rest of the name becomes the caption (astro-milky-way.jpg -> "Milky Way").
    VIA ALPINA: put "via-alpina" in a filename and it ALSO shows on the Via Alpina page.
    FEATURE: add "-feature" to pin a shot to the home page grid.
-   Reserved names: hero.jpg  about.jpg  alpina.jpg  movember.jpg
+   Reserved names: hero.jpg  about.jpg  alpina.jpg  movember-mo.png
    >>> SET YOUR REPO NAME below if it isn't "jcv-photography".
    ========================================================= */
 const REPO = { owner:"efficientlyjesse", name:"jcv-photography", branch:"main", dir:"images" };
@@ -393,7 +386,7 @@ const CATS   = ["All","Landscapes","Astro","Nature","Sunrises & Sunsets","Aerial
 const PREFIX = { landscape:"Landscapes", astro:"Astro", nature:"Nature", sunset:"Sunrises & Sunsets", aerial:"Aerial" };
 const IMG_RE = /\.(jpe?g|png|webp|avif|gif)$/i;
 const VA_RE  = /via[-_]?alpina/i;
-const SKIP   = ["hero","about","alpina","movember"];
+const SKIP   = ["hero","about","alpina","movember","movember-mo"];
 
 const U = id => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1000&q=80`;
 const FALLBACK = [
@@ -524,12 +517,11 @@ function showLb(){
   img.src=p.src;
   const title = p.t || p.cat;
   document.getElementById('lbCap').textContent = p.t ? `${p.t} — ${p.cat}` : p.cat;
-  // Print enquiry link — pre-fills an email with the photo's title
+  // "Order a print" — opens an email pre-filled with the photo title
   const buy = document.getElementById('lbBuy');
-  const subject = encodeURIComponent(`Print enquiry — ${title}`);
-  const body = encodeURIComponent(`Hi Jesse,\n\nI'm interested in buying a print of "${title}"${p.va ? ' (from the Via Alpina series)' : ''}.\n\nThanks!`);
+  const subject = encodeURIComponent(`Print order — ${title}`);
+  const body = encodeURIComponent(`Hi Jesse,\n\nI'd like to order a print of "${title}"${p.va ? ' (from the Via Alpina series)' : ''}.\n\nThanks!`);
   buy.href = `mailto:jessecasesphoto@gmail.com?subject=${subject}&body=${body}`;
-  buy.textContent = p.va ? 'Buy as a print — proceeds go to Movember →' : 'Interested in a print? Enquire →';
 }
 function lbStep(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
 function closeLb(){document.getElementById('lb').classList.remove('open')}
@@ -544,6 +536,9 @@ function onScroll(){document.getElementById('hdr').classList.toggle('scrolled',w
 window.addEventListener('scroll',onScroll);
 onScroll();
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* Make the whole fundraiser card clickable (opens the Via Alpina page) */
+document.querySelectorAll('.fund-card').forEach(c=>c.addEventListener('click',()=>go('via-alpina')));
 
 (async function init(){
   PHOTOS = await loadPhotos();
