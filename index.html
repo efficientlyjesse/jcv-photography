@@ -139,6 +139,16 @@
   .fund-actions{display:flex;gap:12px}
   .btn.sm{padding:10px 22px;font-size:.72rem}
 
+  /* Graphic panel for cards that don't use a photo */
+  .fund-graphic{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--accent);
+    background:radial-gradient(ellipse at center,#16181e,#0a0b0d 80%);position:relative;overflow:hidden}
+  .fund-graphic::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(201,168,106,.10),transparent 60%)}
+  .fund-graphic .mo-mark{position:relative;width:min(62%,240px);height:112px;background:var(--accent);
+    -webkit-mask:url(images/movember-mo.png) center/contain no-repeat;
+    mask:url(images/movember-mo.png) center/contain no-repeat;
+    filter:drop-shadow(0 8px 22px rgba(201,168,106,.28))}
+  .fund-graphic .mo-tag{position:relative;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+
   /* ---------- VIA ALPINA PAGE ---------- */
   .va-banner{position:relative;height:56vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}
   .va-banner .bg{position:absolute;inset:0;z-index:0}
@@ -287,7 +297,10 @@
         </div>
       </div>
       <div class="fund-card">
-        <div class="img"><img src="images/movember.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80'" alt=""></div>
+        <div class="fund-graphic" role="img" aria-label="Movember">
+          <div class="mo-mark"></div>
+          <span class="mo-tag">Men's health · Movember</span>
+        </div>
         <div class="fund-body">
           <h3>Movember</h3>
           <p>The Via Alpina walk was a Movember fundraiser for men's health — mental health, depression awareness and suicide prevention. The mo's gone, but the cause and the donation page are still open.</p>
