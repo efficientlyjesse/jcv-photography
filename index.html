@@ -146,7 +146,9 @@
   .lb{position:fixed;inset:0;z-index:100;background:rgba(6,7,9,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
   .lb.open{display:flex;animation:fade .3s}
   .lb img{max-width:88vw;max-height:76vh;width:auto;height:auto;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-  .lb-info{position:absolute;bottom:22px;left:0;right:0;text-align:center;padding:0 20px}
+  .lb-info{position:absolute;bottom:22px;left:0;right:0;text-align:center;padding:0 20px;z-index:2}
+  .lb-shield{position:absolute;inset:0;z-index:1}
+  .tile .shield{position:absolute;inset:0;z-index:3;cursor:pointer}
   .lb-cap{color:var(--muted);font-family:var(--serif);font-size:1.2rem;letter-spacing:.03em}
   .lb-buy{display:inline-block;margin-top:10px;color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--accent);padding:8px 18px;transition:.25s;cursor:pointer}
   .lb-buy:hover{background:var(--accent);color:#0a0b0d}
@@ -177,6 +179,10 @@
   .cf-status{margin-top:16px;font-size:.9rem;text-align:center;min-height:1.2em}
   .cf-status.ok{color:var(--accent)}
   .cf-status.err{color:#e0796b}
+  .prints-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:940px;margin:0 auto 20px}
+  .prints-item{border:1px solid var(--line);background:var(--bg-soft);padding:26px 24px}
+  .prints-item h4{font-family:var(--serif);font-size:1.3rem;font-weight:500;margin-bottom:8px;color:var(--text)}
+  .prints-item p{color:var(--muted);font-size:.92rem;line-height:1.55}
 
   /* ---------- FUNDRAISERS ---------- */
   .fund-hero{text-align:center;max-width:680px;margin:0 auto 56px}
@@ -224,7 +230,7 @@
 
   /* ---------- FOOTER ---------- */
   footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 38px;text-align:center;color:var(--muted);position:relative;z-index:1}
-  footer .brand{display:inline-block;margin-bottom:14px}
+  footer .brand{display:inline-block;margin-bottom:14px;color:var(--accent)}
   footer .links{display:flex;gap:24px;justify-content:center;margin:18px 0;flex-wrap:wrap}
   footer .links button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:.25s}
   footer .links button:hover{color:var(--accent)}
@@ -269,6 +275,7 @@
     <button data-nav="galleries" onclick="go('galleries')">Galleries</button>
     <button data-nav="about" onclick="go('about')">About</button>
     <button data-nav="fundraisers" onclick="go('fundraisers')">Fundraisers</button>
+    <button data-nav="prints" onclick="go('prints')">Prints</button>
     <a class="ig" href="https://www.instagram.com/jesselcv/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
     </a>
@@ -335,24 +342,6 @@
           Follow @jesselcv
         </a>
       </div>
-    </div>
-
-    <div class="contact-wrap" id="contact">
-      <span class="kicker">Get in touch</span>
-      <h2 class="contact-h">Prints &amp; inquiries</h2>
-      <p class="contact-sub">Interested in a print, a licence, or just want to say hello? Send a note and it lands straight in my inbox.</p>
-      <form id="contactForm" class="contact-form">
-        <input type="hidden" name="access_key" value="c1216be3-a212-4dbf-8a88-d4cc56e1243b">
-        <input type="hidden" name="subject" value="New inquiry from JCV Photography">
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-        <div class="cf-row">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="email" name="email" placeholder="Your email" required>
-        </div>
-        <textarea name="message" rows="5" placeholder="Your message" required></textarea>
-        <button type="submit" class="btn solid">Send message</button>
-        <div class="cf-status" id="cfStatus"></div>
-      </form>
     </div>
   </div>
 </section>
@@ -427,11 +416,45 @@
   </div>
 </section>
 
+<!-- PRINTS & INQUIRIES -->
+<section class="page" id="prints">
+  <div class="wrap section-pad">
+    <div class="page-head">
+      <span class="kicker">Prints &amp; Inquiries</span>
+      <h2>Take a piece home</h2>
+      <p>Any image in the galleries can be made into a print. Tell me what you're after and I'll help you find the right piece, size and finish.</p>
+    </div>
+    <div class="prints-info">
+      <div class="prints-item"><h4>Custom sizes</h4><p>Prints come in a range of sizes — and if you need something specific for a wall, frame or space, just say so and I'll sort it.</p></div>
+      <div class="prints-item"><h4>Digital downloads</h4><p>Prefer a high-resolution file? Licensed digital downloads are available for personal use.</p></div>
+      <div class="prints-item"><h4>Licensing</h4><p>Editorial, commercial or other licensing — get in touch with the image and how you'd like to use it.</p></div>
+    </div>
+    <div class="contact-wrap" id="contact">
+      <span class="kicker">Get in touch</span>
+      <h2 class="contact-h">Send an inquiry</h2>
+      <p class="contact-sub">Let me know which image you're interested in (and the size or use you have in mind) — it lands straight in my inbox.</p>
+      <form id="contactForm" class="contact-form">
+        <input type="hidden" name="access_key" value="c1216be3-a212-4dbf-8a88-d4cc56e1243b">
+        <input type="hidden" name="subject" value="New inquiry from JCV Photography">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <div class="cf-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+        </div>
+        <textarea name="message" rows="5" placeholder="Which photo, and what you have in mind…" required></textarea>
+        <button type="submit" class="btn solid">Send inquiry</button>
+        <div class="cf-status" id="cfStatus"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- LIGHTBOX -->
 <div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
   <button class="lb-close" onclick="closeLb()">&times;</button>
   <button class="lb-nav lb-prev" onclick="lbStep(-1)">&#8249;</button>
   <img id="lbImg" src="" alt="">
+  <div class="lb-shield" onclick="closeLb()"></div>
   <button class="lb-nav lb-next" onclick="lbStep(1)">&#8250;</button>
   <div class="lb-info">
     <div class="lb-cap" id="lbCap"></div>
@@ -559,6 +582,7 @@ function tile(p,extraClass,caption){
   return `<div class="tile reveal ${extraClass||''}" onclick="openLb('${encodeURIComponent(p.src)}')">
     <img src="${p.src}" loading="lazy" onerror="this.style.opacity=0" alt="${t}">
     <div class="cap"><span>${t}</span></div>
+    <div class="shield"></div>
   </div>`;
 }
 function renderFeatured(){
@@ -652,6 +676,10 @@ document.getElementById('yr').textContent=new Date().getFullYear();
 
 /* Make the whole fundraiser card clickable (opens the Via Alpina page) */
 document.querySelectorAll('.fund-card').forEach(c=>c.addEventListener('click',()=>go('via-alpina')));
+
+/* ---------- LIGHT IMAGE PROTECTION (deterrent only) ---------- */
+document.addEventListener('contextmenu',e=>{const t=e.target;if(t.tagName==='IMG'||t.classList.contains('shield')||t.classList.contains('lb-shield'))e.preventDefault();});
+document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault();});
 
 /* ---------- LOADING SPLASH ---------- */
 function reveal(){
