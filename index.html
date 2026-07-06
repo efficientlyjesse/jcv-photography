@@ -1,6 +1,18 @@
 <!-- JCV Photography. Photos go in images/. Category prefix sets the gallery; add "via-alpina" to a filename to also show it on the Via Alpina page. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JCV Photography — Jesse Cases Villablanca</title>
+<meta name="description" content="Landscape, astro and aerial photography by Jesse Cases Villablanca. Fine-art prints available.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%230a0b0d'/%3E%3Cpath%20d='M10%2048%20L26%2022%20L34%2034%20L41%2026%20L54%2048%20Z'%20fill='%23c9a86a'/%3E%3Ccircle%20cx='45'%20cy='16'%20r='4'%20fill='%23c9a86a'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://efficientlyjesse.github.io/jcv-photography/">
+<meta property="og:title" content="JCV Photography">
+<meta property="og:description" content="Landscape, astro and aerial photography by Jesse Cases Villablanca.">
+<meta property="og:image" content="https://efficientlyjesse.github.io/jcv-photography/images/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JCV Photography">
+<meta name="twitter:description" content="Landscape, astro and aerial photography by Jesse Cases Villablanca.">
+<meta name="twitter:image" content="https://efficientlyjesse.github.io/jcv-photography/images/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -25,6 +37,23 @@
   a{color:inherit;text-decoration:none}
   .kicker{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:400}
   .hero-brand{font-size:2.25rem;letter-spacing:.12em;font-weight:500}
+
+  /* ---------- LOADING SPLASH ---------- */
+  #splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .7s ease,visibility .7s}
+  #splash.hide{opacity:0;visibility:hidden}
+  .splash-brand{font-family:var(--serif);font-size:1.9rem;letter-spacing:.14em;color:var(--text);animation:pulse 1.5s ease-in-out infinite}
+  .splash-brand b{color:var(--accent)}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+  /* ---------- FILM GRAIN + VIGNETTE ---------- */
+  .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.4))}
+  .grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-size:200px 200px;
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ---------- BACK TO TOP ---------- */
+  #toTop{position:fixed;right:26px;bottom:26px;z-index:70;width:44px;height:44px;border:1px solid var(--line);background:rgba(16,18,22,.82);backdrop-filter:blur(8px);color:var(--accent);cursor:pointer;opacity:0;visibility:hidden;transition:.35s;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  #toTop.show{opacity:1;visibility:visible}
+  #toTop:hover{background:var(--accent);color:#0a0b0d;border-color:var(--accent)}
 
   /* ---------- NAV ---------- */
   header{
@@ -58,19 +87,19 @@
   /* ---------- HERO ---------- */
   .hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
   .hero .bg{position:absolute;inset:0;z-index:0}
-  .hero .bg img{animation:kenburns 22s ease-out forwards}
-  .hero .bg::after{content:"";position:absolute;inset:0;opacity:1;animation:overlayIn 2.6s ease forwards;
+  .hero .bg img{animation:kenburns 22.2s ease-out forwards;animation-play-state:paused}
+  .hero .bg::after{content:"";position:absolute;inset:0;opacity:1;animation:overlayIn 2.9s ease forwards;animation-play-state:paused;
     background:radial-gradient(ellipse at center,rgba(10,11,13,.25),rgba(10,11,13,.82) 75%),linear-gradient(to bottom,rgba(10,11,13,.4),rgba(10,11,13,.15) 40%,rgba(10,11,13,.95))}
-  .hero-inner{position:relative;z-index:2;padding:0 24px;max-width:880px}
-  .hero-inner > *{opacity:0;animation:fadeUp .9s ease forwards}
-  .hero-inner .hero-brand{animation-delay:1.25s}
-  .hero-inner h1{animation-delay:1.55s}
-  .hero-inner p{animation-delay:1.95s}
-  .hero-inner .hero-btns{animation-delay:2.3s}
+  .hero-inner{position:relative;z-index:4;padding:0 24px;max-width:880px}
+  .hero-inner > *{opacity:0;animation:fadeUp .9s ease forwards;animation-play-state:paused}
+  .hero-inner .hero-brand{animation-delay:1.55s}
+  .hero-inner h1{animation-delay:1.85s}
+  .hero-inner p{animation-delay:2.25s}
+  .hero-inner .hero-btns{animation-delay:2.6s}
+  body.ready .hero .bg img,body.ready .hero .bg::after,body.ready .hero-inner > *{animation-play-state:running}
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  @keyframes overlayIn{0%{opacity:.4}52%{opacity:.4}100%{opacity:1}}
-  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.12)}}
-  @media(prefers-reduced-motion:reduce){.hero .bg img,.hero .bg::after,.hero-inner>*{animation:none!important;opacity:1!important;transform:none!important}}
+  @keyframes overlayIn{0%{opacity:.4}57%{opacity:.4}100%{opacity:1}}
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.13)}}
   .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.5rem,6vw,5rem);line-height:1.08;margin:18px 0 22px;letter-spacing:.01em}
   .hero p{color:var(--muted);font-size:1.05rem;max-width:560px;margin:0 auto 36px}
   .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
@@ -78,7 +107,7 @@
   .btn:hover{background:var(--accent);color:#0a0b0d}
   .btn.solid{background:var(--accent);color:#0a0b0d}
   .btn.solid:hover{background:var(--accent-dim);border-color:var(--accent-dim)}
-  .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;animation:bob 2.2s infinite}
+  .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:4;color:var(--muted);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;animation:bob 2.2s infinite}
   @keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,8px);opacity:1}}
 
   /* ---------- FEATURED ---------- */
@@ -89,6 +118,8 @@
 
   /* ---------- TILES / GALLERY ---------- */
   .tile{position:relative;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,#181b21,#0c0d10);aspect-ratio:3/2}
+  .tile.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .tile.reveal.revealed{opacity:1;transform:none}
   .feat-grid .tile:first-child{aspect-ratio:auto;min-height:100%}
   .tile::before{content:"JCV";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.6rem;color:rgba(255,255,255,.08);letter-spacing:.2em;z-index:0}
   .tile img{position:relative;z-index:1;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .3s}
@@ -131,6 +162,21 @@
   .about-text h2{font-family:var(--serif);font-size:3rem;font-weight:500;margin:14px 0 20px}
   .about-text p{color:#c3c1bb;margin-bottom:18px;font-size:1.05rem}
   .about-text .ig-line{display:inline-flex;align-items:center;gap:8px;margin-top:10px;color:var(--accent)}
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-wrap{max-width:680px;margin:96px auto 0;text-align:center}
+  .contact-h{font-family:var(--serif);font-size:2.4rem;font-weight:500;margin:10px 0 12px}
+  .contact-sub{color:var(--muted);margin-bottom:34px}
+  .contact-form{text-align:left}
+  .cf-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  .contact-form input,.contact-form textarea{width:100%;flex:1;min-width:200px;background:var(--bg-soft);border:1px solid var(--line);color:var(--text);font-family:var(--sans);font-size:.95rem;padding:14px 16px;transition:border-color .25s}
+  .contact-form textarea{margin-bottom:20px;resize:vertical}
+  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--accent)}
+  .contact-form .hp{display:none}
+  .contact-form button{width:100%;cursor:pointer}
+  .cf-status{margin-top:16px;font-size:.9rem;text-align:center;min-height:1.2em}
+  .cf-status.ok{color:var(--accent)}
+  .cf-status.err{color:#e0796b}
 
   /* ---------- FUNDRAISERS ---------- */
   .fund-hero{text-align:center;max-width:680px;margin:0 auto 56px}
@@ -177,7 +223,7 @@
   .va-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
 
   /* ---------- FOOTER ---------- */
-  footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 38px;text-align:center;color:var(--muted)}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:48px 38px;text-align:center;color:var(--muted);position:relative;z-index:1}
   footer .brand{display:inline-block;margin-bottom:14px}
   footer .links{display:flex;gap:24px;justify-content:center;margin:18px 0;flex-wrap:wrap}
   footer .links button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:.25s}
@@ -205,7 +251,13 @@
     .feat-grid .tile:first-child{grid-row:auto}
     .va-map{width:50%;right:10px;bottom:10px}
   }
+  @media(prefers-reduced-motion:reduce){
+    .hero .bg img,.hero .bg::after,.hero-inner>*{animation:none!important;opacity:1!important;transform:none!important}
+    .tile.reveal{opacity:1!important;transform:none!important}
+  }
 </style>
+
+<div id="splash"><div class="splash-brand">JCV<b>.</b> Photography</div></div>
 
 <header id="hdr">
   <div class="brand" onclick="go('home')">JCV<b>.</b> Photography</div>
@@ -283,6 +335,24 @@
           Follow @jesselcv
         </a>
       </div>
+    </div>
+
+    <div class="contact-wrap" id="contact">
+      <span class="kicker">Get in touch</span>
+      <h2 class="contact-h">Prints &amp; inquiries</h2>
+      <p class="contact-sub">Interested in a print, a licence, or just want to say hello? Send a note and it lands straight in my inbox.</p>
+      <form id="contactForm" class="contact-form">
+        <input type="hidden" name="access_key" value="c1216be3-a212-4dbf-8a88-d4cc56e1243b">
+        <input type="hidden" name="subject" value="New inquiry from JCV Photography">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <div class="cf-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+        </div>
+        <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+        <button type="submit" class="btn solid">Send message</button>
+        <div class="cf-status" id="cfStatus"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -368,6 +438,10 @@
     <a class="lb-buy" id="lbBuy" href="#">Order a print &rarr;</a>
   </div>
 </div>
+
+<button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&uarr;</button>
+<div class="vignette"></div>
+<div class="grain"></div>
 
 <footer>
   <div class="brand">JCV<b>.</b> Photography</div>
@@ -462,14 +536,27 @@ function go(page){
   window.scrollTo({top:0,behavior:'instant'});
   closeMenu();
   onScroll();
+  // reveal any tiles already visible on the freshly shown page
+  setTimeout(()=>{
+    document.querySelectorAll('.page.active .tile.reveal:not(.revealed)').forEach(t=>{
+      const r=t.getBoundingClientRect();
+      if(r.top<window.innerHeight && r.bottom>0) t.classList.add('revealed');
+    });
+  },60);
 }
 function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
 function closeMenu(){document.getElementById('nav').classList.remove('open')}
 
+/* ---------- SCROLL REVEAL ---------- */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+},{threshold:0.06, rootMargin:'0px 0px -30px 0px'});
+function observeTiles(){ document.querySelectorAll('.tile.reveal:not(.revealed)').forEach(t=>revealObserver.observe(t)); }
+
 let PHOTOS=[], current=[];
 function tile(p,extraClass,caption){
   const t = caption!==undefined ? caption : p.t;
-  return `<div class="tile ${extraClass||''}" onclick="openLb('${encodeURIComponent(p.src)}')">
+  return `<div class="tile reveal ${extraClass||''}" onclick="openLb('${encodeURIComponent(p.src)}')">
     <img src="${p.src}" loading="lazy" onerror="this.style.opacity=0" alt="${t}">
     <div class="cap"><span>${t}</span></div>
   </div>`;
@@ -481,6 +568,7 @@ function renderFeatured(){
     for(const p of PHOTOS){ if(!seen.has(p.cat)){seen.add(p.cat);feat.push(p);} if(feat.length>=5)break; }
   }
   document.getElementById('featGrid').innerHTML = feat.map(p=>tile(p)).join('');
+  observeTiles();
 }
 function buildFilters(){
   const present = CATS.filter(c=>c==="All"||PHOTOS.some(p=>p.cat===c));
@@ -490,6 +578,7 @@ function buildFilters(){
 const HEIGHTS=['g-tall','g-short','','g-short','g-tall',''];
 function renderGallery(list){
   document.getElementById('galleryGrid').innerHTML = list.map((p,i)=>tile(p,HEIGHTS[i%HEIGHTS.length])).join('');
+  observeTiles();
 }
 function filter(cat,btn){
   document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
@@ -508,8 +597,10 @@ function renderViaAlpina(){
     const cap = p.t.replace(/^via\s*alpina\s*/i,'').trim() || p.cat;
     return tile(p, HEIGHTS[i%HEIGHTS.length], cap);
   }).join('');
+  observeTiles();
 }
 
+/* ---------- LIGHTBOX ---------- */
 let lbList=[], lbIdx=0;
 function openLb(encSrc){
   const src = decodeURIComponent(encSrc);
@@ -534,6 +625,11 @@ function showLb(){
   const subject = encodeURIComponent(`Print order — ${title}`);
   const body = encodeURIComponent(`Hi Jesse,\n\nI'd like to order a print of "${title}"${p.va ? ' (from the Via Alpina series)' : ''}.\n\nThanks!`);
   buy.href = `mailto:jessecasesphoto@gmail.com?subject=${subject}&body=${body}`;
+  // preload the next and previous images so arrowing is instant
+  [lbIdx+1, lbIdx-1].forEach(i=>{
+    const q = lbList[(i+lbList.length)%lbList.length];
+    if(q){ const im = new Image(); im.src = q.src; }
+  });
 }
 function lbStep(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
 function closeLb(){document.getElementById('lb').classList.remove('open')}
@@ -544,13 +640,58 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')lbStep(-1);
 });
 
-function onScroll(){document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>40||!document.getElementById('home').classList.contains('active'))}
+/* ---------- NAV SCROLL + BACK TO TOP ---------- */
+function onScroll(){
+  const scrolled = window.scrollY>40 || !document.getElementById('home').classList.contains('active');
+  document.getElementById('hdr').classList.toggle('scrolled', scrolled);
+  document.getElementById('toTop').classList.toggle('show', window.scrollY>500);
+}
 window.addEventListener('scroll',onScroll);
 onScroll();
 document.getElementById('yr').textContent=new Date().getFullYear();
 
 /* Make the whole fundraiser card clickable (opens the Via Alpina page) */
 document.querySelectorAll('.fund-card').forEach(c=>c.addEventListener('click',()=>go('via-alpina')));
+
+/* ---------- LOADING SPLASH ---------- */
+function reveal(){
+  document.body.classList.add('ready');
+  const s = document.getElementById('splash');
+  if(s) s.classList.add('hide');
+}
+window.addEventListener('load',()=>setTimeout(reveal,300));
+setTimeout(reveal,3200); // safety net
+
+/* ---------- CONTACT FORM (Web3Forms) ---------- */
+const cf = document.getElementById('contactForm');
+if(cf){
+  cf.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const status = document.getElementById('cfStatus');
+    const btn = cf.querySelector('button[type=submit]');
+    status.className='cf-status'; status.textContent='Sending…'; btn.disabled=true;
+    try{
+      const res = await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify(Object.fromEntries(new FormData(cf).entries()))
+      });
+      const json = await res.json();
+      if(json.success){
+        status.className='cf-status ok';
+        status.textContent="Thanks — your message is on its way. I'll be in touch soon.";
+        cf.reset();
+      }else{
+        status.className='cf-status err';
+        status.textContent = json.message || 'Something went wrong — email jessecasesphoto@gmail.com directly.';
+      }
+    }catch(err){
+      status.className='cf-status err';
+      status.textContent='Network error — email jessecasesphoto@gmail.com directly.';
+    }
+    btn.disabled=false;
+  });
+}
 
 (async function init(){
   PHOTOS = await loadPhotos();
